@@ -27,7 +27,7 @@ import java.util.List;
 import static org.mockserver.model.HttpRequest.request;
 
 @SpringBootTest
-@TestPropertySource(locations="classpath:application-test.properties")
+@TestPropertySource(locations = "classpath:application-test.properties")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @ExtendWith(MockitoExtension.class)
