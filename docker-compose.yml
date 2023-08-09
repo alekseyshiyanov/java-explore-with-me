@@ -1,15 +1,63 @@
 version: '3.1'
 services:
   stats-server:
+    build:
+      context: ewm-stats-service-server/
+      dockerfile: ewm-stats-service-server.dockerfile
+    image: stats-server:latest
+    container_name: stats-server-container
     ports:
       - "9090:9090"
+      - "5005:5005"
+    depends_on:
+      - stats-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/statsdb
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - TZ=Europe/Moscow
 
   stats-db:
-    image: postgres:14-alpine
+    build:
+      context: ewm-stats-service-database/
+      dockerfile: ewm-stats-database.dockerfile
+    image: stats-database:latest
+    container_name: stats-database-container
+    ports:
+      - "6541:5432"
+    environment:
+      - POSTGRES_DB=statsdb
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - TZ=Europe/Moscow
 
   ewm-service:
+    build:
+      context: ewm-main-service/
+      dockerfile: ewm-main-service.dockerfile
+    image: ewm-main-service:latest
+    container_name: ewm-main-service-container
     ports:
       - "8080:8080"
+      - "5006:5006"
+    depends_on:
+      - ewm-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/ewmdb
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - TZ=Europe/Moscow
 
   ewm-db:
-    image: postgres:14-alpine
+    build:
+      context: ewm-database/
+      dockerfile: ewm-database.dockerfile
+    image: ewm-database:latest
+    container_name: ewm-database-container
+    ports:
+      - "6542:5432"
+    environment:
+      - POSTGRES_DB=ewmdb
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - TZ=Europe/Moscow
