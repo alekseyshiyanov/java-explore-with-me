@@ -13,6 +13,7 @@ public class HitsMapper {
                 .created(hitDto.getTimestamp())
                 .build();
     }
+
     public static HitDto toDto(Hits hit) {
         return HitDto.builder()
                 .app(hit.getApp().getName())

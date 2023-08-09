@@ -44,9 +44,9 @@ class StatsControllerMockMvcTest {
     private MockMvc mvc;
 
 
-    private final String START_TIME = "2020-01-01 00:00:00";
-    private final String CURRENT_TIME = "2023-01-01 00:00:00";
-    private final String END_TIME = "2030-01-01 00:00:00";
+    private final String startTime = "2020-01-01 00:00:00";
+    private final String currentTime = "2023-01-01 00:00:00";
+    private final String endTime = "2030-01-01 00:00:00";
 
     private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -74,7 +74,7 @@ class StatsControllerMockMvcTest {
                 "test_app_service",
                 "test_app_uri",
                 "10.10.10.10",
-                LocalDateTime.parse(CURRENT_TIME, dtf)
+                LocalDateTime.parse(currentTime, dtf)
                 );
 
         when(service.createHitRecord(any(HitDto.class))).thenReturn(testHitDto);
@@ -96,8 +96,8 @@ class StatsControllerMockMvcTest {
     void getStatsWithoutUrisAndUnique() throws Exception {
         MultiValueMap<String, String> reqParam = new LinkedMultiValueMap<>();
 
-        reqParam.add("start", UriUtils.encodePath(START_TIME, "UTF-8"));
-        reqParam.add("end", UriUtils.encodePath(END_TIME, "UTF-8"));
+        reqParam.add("start", UriUtils.encodePath(startTime, "UTF-8"));
+        reqParam.add("end", UriUtils.encodePath(endTime, "UTF-8"));
 
         when(service.getStats(anyString(), anyString(), any(), any())).thenReturn(testStatsDtoList);
 
@@ -124,8 +124,8 @@ class StatsControllerMockMvcTest {
     void getStatsWithUrisAndUnique() throws Exception {
         MultiValueMap<String, String> reqParam = new LinkedMultiValueMap<>();
 
-        reqParam.add("start", UriUtils.encodePath(START_TIME, "UTF-8"));
-        reqParam.add("end", UriUtils.encodePath(END_TIME, "UTF-8"));
+        reqParam.add("start", UriUtils.encodePath(startTime, "UTF-8"));
+        reqParam.add("end", UriUtils.encodePath(endTime, "UTF-8"));
         reqParam.add("uris", "test_app_uri");
         reqParam.add("unique", "true");
 
@@ -154,7 +154,7 @@ class StatsControllerMockMvcTest {
     void getStatsWithoutStartTime() throws Exception {
         MultiValueMap<String, String> reqParam = new LinkedMultiValueMap<>();
 
-        reqParam.add("end", UriUtils.encodePath(END_TIME, "UTF-8"));
+        reqParam.add("end", UriUtils.encodePath(endTime, "UTF-8"));
 
         mvc.perform(
                         get("/stats")
@@ -170,7 +170,7 @@ class StatsControllerMockMvcTest {
     void getStatsWithoutEndTime() throws Exception {
         MultiValueMap<String, String> reqParam = new LinkedMultiValueMap<>();
 
-        reqParam.add("start", UriUtils.encodePath(START_TIME, "UTF-8"));
+        reqParam.add("start", UriUtils.encodePath(startTime, "UTF-8"));
 
         mvc.perform(
                         get("/stats")

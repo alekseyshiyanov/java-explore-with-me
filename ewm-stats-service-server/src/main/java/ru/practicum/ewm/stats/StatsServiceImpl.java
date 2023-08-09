@@ -43,7 +43,7 @@ public class StatsServiceImpl implements StatsService {
         LocalDateTime startTime = LocalDateTime.parse(start.trim(), dtf);
         LocalDateTime endTime = LocalDateTime.parse(end.trim(), dtf);
 
-        if((uris == null) || (uris.isEmpty())) {
+        if ((uris == null) || (uris.isEmpty())) {
             return getStatsByTime(startTime, endTime, unique);
         }
 

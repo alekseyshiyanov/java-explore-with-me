@@ -32,9 +32,9 @@ class StatsServiceImplUnitTest {
 
     private final AppsRepository appsRepository;
 
-    private final String START_TIME = "2020-01-01 00:00:00";
-    private final String CURRENT_TIME = "2023-01-01 00:00:00";
-    private final String END_TIME = "2030-01-01 00:00:00";
+    private final String startTime = "2020-01-01 00:00:00";
+    private final String currentTime = "2023-01-01 00:00:00";
+    private final String endTime = "2030-01-01 00:00:00";
 
     private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -48,7 +48,7 @@ class StatsServiceImplUnitTest {
     @Test
     @Order(2)
     public void createHitRecordTestAppNotPresentBehavior() {
-        var ldtNow = LocalDateTime.parse(CURRENT_TIME, dtf);
+        var ldtNow = LocalDateTime.parse(currentTime, dtf);
 
         HitDto hitDto = HitDto.builder()
                 .app("test_app_name")
@@ -69,7 +69,7 @@ class StatsServiceImplUnitTest {
     @Test
     @Order(3)
     public void createHitRecordTestAppIsPresentBehavior() {
-        var ldtNow = LocalDateTime.parse(CURRENT_TIME, dtf);
+        var ldtNow = LocalDateTime.parse(currentTime, dtf);
 
         HitDto hitDto = HitDto.builder()
                 .app("ewm-main-service")
@@ -88,7 +88,7 @@ class StatsServiceImplUnitTest {
     @Test
     @Order(4)
     void getStatsNonUniqueIpAddressUrisIsEmptyBehavior() {
-        var recordList = service.getStats(START_TIME, END_TIME, null, false);
+        var recordList = service.getStats(startTime, endTime, null, false);
 
         Assertions.assertEquals(6, recordList.size());
         Assertions.assertEquals(4, recordList.get(0).getHits());
@@ -102,7 +102,7 @@ class StatsServiceImplUnitTest {
     @Order(5)
     @Test
     void getStatsUniqueIpAddressUrisIsEmptyBehavior() {
-        var recordList = service.getStats(START_TIME, END_TIME, null, true);
+        var recordList = service.getStats(startTime, endTime, null, true);
 
         Assertions.assertEquals(6, recordList.size());
         Assertions.assertEquals(3, recordList.get(0).getHits());
@@ -112,6 +112,7 @@ class StatsServiceImplUnitTest {
         Assertions.assertEquals(1, recordList.get(2).getHits());
         Assertions.assertEquals(1, recordList.get(2).getHits());
     }
+
     @Order(6)
     @Test
     void getStatsUniqueIpAddressUrisNotEmptyBehavior() {
@@ -120,7 +121,7 @@ class StatsServiceImplUnitTest {
                 "/events/1"
         );
 
-        var recordList = service.getStats(START_TIME, END_TIME, uris, true);
+        var recordList = service.getStats(startTime, endTime, uris, true);
 
         Assertions.assertEquals(3, recordList.size());
         Assertions.assertEquals(3, recordList.get(0).getHits());
@@ -136,7 +137,7 @@ class StatsServiceImplUnitTest {
                 "/events/1"
         );
 
-        var recordList = service.getStats(START_TIME, END_TIME, uris, false);
+        var recordList = service.getStats(startTime, endTime, uris, false);
 
         Assertions.assertEquals(3, recordList.size());
         Assertions.assertEquals(4, recordList.get(0).getHits());
@@ -153,7 +154,7 @@ class StatsServiceImplUnitTest {
         );
 
         ApiErrorException ex = Assertions.assertThrows(ApiErrorException.class, () ->
-                service.getStats(START_TIME, END_TIME, uris, false));
+                service.getStats(startTime, endTime, uris, false));
 
         Assertions.assertTrue(ex.getMessage().contains("Одно из имен сервиса отсутствует в базе данных"));
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
