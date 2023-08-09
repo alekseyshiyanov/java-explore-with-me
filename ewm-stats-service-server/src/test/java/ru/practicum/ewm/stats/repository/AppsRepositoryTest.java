@@ -65,6 +65,6 @@ class AppsRepositoryTest {
 
     private void fillAppsTestList() {
         appsTestList = appsRepository.findAll();
-        Assertions.assertTrue(!appsTestList.isEmpty(), "Количество тестовых записей в 'apps' должно быть больше 0");
+        Assertions.assertFalse(appsTestList.isEmpty(), "Количество тестовых записей в 'apps' должно быть больше 0");
     }
 }

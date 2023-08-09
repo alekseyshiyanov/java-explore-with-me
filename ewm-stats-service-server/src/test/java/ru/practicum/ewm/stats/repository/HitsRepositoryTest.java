@@ -177,11 +177,11 @@ class HitsRepositoryTest {
 
     private void fillAppsTestList() {
         appsTestList = appsRepository.findAll();
-        Assertions.assertTrue(!appsTestList.isEmpty(), "Количество тестовых записей в 'apps' должно быть больше 0");
+        Assertions.assertFalse(appsTestList.isEmpty(), "Количество тестовых записей в 'apps' должно быть больше 0");
     }
 
     private void fillHitsTestList() {
         hitsTestList = hitsRepository.findAll();
-        Assertions.assertTrue(!hitsTestList.isEmpty(), "Количество тестовых записей в 'hits' должно быть больше 0");
+        Assertions.assertFalse(hitsTestList.isEmpty(), "Количество тестовых записей в 'hits' должно быть больше 0");
     }
 }
