@@ -38,14 +38,14 @@ class StatsClientTest {
     @Autowired
     private final StatsClient statsClient;
 
-    private String startTime = "2020.01.01 00:00:00";
-    private String endTime = "2035.01.01 00:00:00";
+    private final String startTime = "2020.01.01 00:00:00";
+    private final String endTime = "2035.01.01 00:00:00";
 
-    private String encodedStartTime = UriUtils.encodePath(startTime, "UTF-8");
-    private String encodedEndTime = UriUtils.encodePath(endTime, "UTF-8");
+    private final String encodedStartTime = UriUtils.encodePath(startTime, "UTF-8");
+    private final String encodedEndTime = UriUtils.encodePath(endTime, "UTF-8");
 
     @BeforeEach
-    public void start() throws Exception {
+    public void start() {
         mockServer = ClientAndServer.startClientAndServer(8000);
     }
 
