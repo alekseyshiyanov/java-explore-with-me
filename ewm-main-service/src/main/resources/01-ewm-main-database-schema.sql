@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS public.categories    (
 
 CREATE TABLE IF NOT EXISTS public.locations    (
                                                     id bigserial NOT NULL,
-                                                    latitude varchar(255) NOT NULL,
-                                                    longitude varchar(255) NOT NULL,
+                                                    latitude dec(2,10) NOT NULL,
+                                                    longitude dec(3,10) NOT NULL,
                                                     CONSTRAINT Locations_pkey PRIMARY KEY (id),
                                                     CONSTRAINT Locations_unique UNIQUE (latitude, longitude)
 );
