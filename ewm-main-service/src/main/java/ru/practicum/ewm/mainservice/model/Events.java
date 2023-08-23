@@ -1,7 +1,6 @@
 package ru.practicum.ewm.mainservice.model;
 
 import lombok.*;
-import ru.practicum.ewm.mainservice.categories.Categories;
 import ru.practicum.ewm.mainservice.events.EventState;
 
 import javax.persistence.*;
