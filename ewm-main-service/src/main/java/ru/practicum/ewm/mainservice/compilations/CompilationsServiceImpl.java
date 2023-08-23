@@ -91,8 +91,6 @@ public class CompilationsServiceImpl implements PublicCompilationsService, Admin
     public CompilationDto updateCompilation(Long compilationId, UpdateCompilationDto inputDto) {
         var compilation = getCompilationById(compilationId);
 
-        compilationArrayRepository.deleteAll(compilation.getCompData());
-
         var newCompilation = CompilationsMapper.fromDto(inputDto);
         var eventIdsList = validateIdsList(inputDto.getEvents());
 
@@ -109,9 +107,11 @@ public class CompilationsServiceImpl implements PublicCompilationsService, Admin
                 newCAList.add(new CompilationArray(null, compilation, event));
             }
 
-            var nn = compilationArrayRepository.saveAll(newCAList);
+            compilationArrayRepository.deleteAll(compilation.getCompData());
 
-            compilation.setCompData(nn);
+            var ret = compilationArrayRepository.saveAll(newCAList);
+
+            compilation.setCompData(ret);
         }
 
         copyNonNullProperties(newCompilation, compilation);
