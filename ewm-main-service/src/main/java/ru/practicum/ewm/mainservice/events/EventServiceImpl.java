@@ -423,7 +423,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
         if(paid != null) {
             queryString.append(buildWhereString(whereFlag));
             queryString.append(" e.paid = ?");
-            queryString.append(paramIndex++);
+            queryString.append(paramIndex);
         }
 
         if(onlyAvailable) {

@@ -1,6 +1,5 @@
 package ru.practicum.ewm.mainservice.events;
 
-import ru.practicum.ewm.mainservice.events.dto.NewEventDto;
 import ru.practicum.ewm.mainservice.events.dto.UpdateEventDto;
 import ru.practicum.ewm.mainservice.model.Events;
 
