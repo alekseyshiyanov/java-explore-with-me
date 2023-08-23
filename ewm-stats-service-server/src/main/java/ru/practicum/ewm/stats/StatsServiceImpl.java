@@ -44,7 +44,7 @@ public class StatsServiceImpl implements StatsService {
         LocalDateTime startTime = LocalDateTime.parse(UriUtils.decode(start, "UTF-8"), dtf);
         LocalDateTime endTime = LocalDateTime.parse(UriUtils.decode(end, "UTF-8"), dtf);
 
-        if(startTime.isAfter(endTime)) {
+        if (startTime.isAfter(endTime)) {
             throw sendErrorMessage(HttpStatus.BAD_REQUEST, "Диапазон дат задан неверно");
         }
 
