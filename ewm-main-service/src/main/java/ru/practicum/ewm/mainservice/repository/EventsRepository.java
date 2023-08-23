@@ -17,17 +17,10 @@ public interface EventsRepository extends JpaRepository<Events, Long> {
 
     @Modifying(clearAutomatically = true)
     @Query("update Events e " +
-            "set e.confirmedRequests = :newValue " +
-            "where e.id = :eventId ")
-    int setConfirmedRequests(@Param("eventId") Long eventId,
-                                @Param("newValue") Long newValue);
-
-    @Modifying(clearAutomatically = true)
-    @Query("update Events e " +
             "set e.confirmedRequests = e.confirmedRequests + :adder " +
             "where e.id = :eventId")
     int increaseConfirmedRequests(@Param("eventId") Long eventId, @Param("adder") Long adder);
-    
+
     @Modifying(clearAutomatically = true)
     @Query("update Events e " +
             "set e.confirmedRequests = e.confirmedRequests - :adder " +
