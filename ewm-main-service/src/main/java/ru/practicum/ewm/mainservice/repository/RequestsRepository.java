@@ -11,13 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RequestsRepository extends JpaRepository<Requests, Long> {
-    int countAllByEventId(Long eventId);
 
     List<Requests> findAllByUserId(Long userId);
 
     Optional<Requests> findByIdAndUserId(Long requestId, Long userId);
-
-    List<Requests> findAllByUserIdAndEventId(Long userId, Long eventId);
 
     List<Requests> findAllByIdIsIn(List<Long> requestsIds);
 
