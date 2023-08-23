@@ -35,7 +35,7 @@ public class PublicCategoriesController {
     public ResponseEntity<Object> getCategoryById(@Valid @PathVariable("catId")
                                                   @NotNull(message = "Значение 'catId' не может быть равно null")
                                                   @Positive(message = "Значение 'catId' должно быть положительным числом больше нуля") Long catId) {
-        log.info("Запрос на удаление категории с id = {}", catId);;
+        log.info("Запрос на удаление категории с id = {}", catId);
         return new ResponseEntity<>(publicCategoryService.getCategoryById(catId), HttpStatus.OK);
     }
 }
