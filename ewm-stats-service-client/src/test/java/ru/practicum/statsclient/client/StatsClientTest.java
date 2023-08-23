@@ -41,8 +41,8 @@ class StatsClientTest {
     private final String startTime = "2020.01.01 00:00:00";
     private final String endTime = "2035.01.01 00:00:00";
 
-    private final String encodedStartTime = UriUtils.encodePath(startTime, "UTF-8");
-    private final String encodedEndTime = UriUtils.encodePath(endTime, "UTF-8");
+    private final String encodedStartTime = UriUtils.encode(startTime, "UTF-8");
+    private final String encodedEndTime = UriUtils.encode(endTime, "UTF-8");
 
     @BeforeEach
     public void start() {
