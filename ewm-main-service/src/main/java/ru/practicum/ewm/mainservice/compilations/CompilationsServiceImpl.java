@@ -43,7 +43,7 @@ public class CompilationsServiceImpl implements PublicCompilationsService, Admin
 
     @Override
     public List<CompilationDto> getCompilationList(Boolean pinned, int from, int size) {
-        Query query = null;
+        Query query;
 
         if(pinned == null) {
             query = entityManager.createQuery("SELECT c FROM Compilations c ORDER BY c.id ASC", Compilations.class);
