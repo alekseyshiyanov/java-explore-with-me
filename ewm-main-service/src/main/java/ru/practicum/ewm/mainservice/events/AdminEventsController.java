@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.mainservice.events.dto.EventsMapper;
-import ru.practicum.ewm.mainservice.events.dto.NewEventDto;
 import ru.practicum.ewm.mainservice.events.dto.UpdateEventDto;
 
 import javax.validation.Valid;
