@@ -59,7 +59,7 @@ public class PublicEventsController {
                                                 HttpServletRequest httpServletRequest) {
         LocalDateTime ldt = LocalDateTime.now();
 
-        var ret = publicEventService.getPublihedEventsById(eventId);
+        var ret = publicEventService.getPublishedEventsById(eventId);
 
         statisticsService.sendStatisticData(httpServletRequest.getRemoteAddr(), httpServletRequest.getRequestURI(), ldt);
 

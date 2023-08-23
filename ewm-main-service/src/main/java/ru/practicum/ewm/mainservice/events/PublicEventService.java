@@ -9,5 +9,5 @@ public interface PublicEventService {
                                       String rangeStart, String rangeEnd, Boolean onlyAvailable,
                                       String sort, int from, int size);
 
-    Events getPublihedEventsById(Long eventId);
+    Events getPublishedEventsById(Long eventId);
 }

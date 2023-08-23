@@ -469,7 +469,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
     }
 
     @Override
-    public Events getPublihedEventsById(Long eventId) {
+    public Events getPublishedEventsById(Long eventId) {
         var ret = eventsRepository.findByIdAndState(eventId, EventState.PUBLISHED).orElseThrow(() ->
                 sendErrorMessage(HttpStatus.NOT_FOUND, "Информация об опубликованном событии с id = " + eventId
                         + " не найдена в базе данных"));
