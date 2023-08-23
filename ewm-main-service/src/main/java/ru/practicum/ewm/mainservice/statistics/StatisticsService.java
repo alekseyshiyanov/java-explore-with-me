@@ -13,9 +13,7 @@ import ru.practicum.statsclient.stats.StatsDto;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 @Slf4j
