@@ -14,7 +14,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestControllerAdvice
 public class RestApiExceptionHandler {
