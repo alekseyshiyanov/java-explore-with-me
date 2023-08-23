@@ -1,6 +1,8 @@
 package ru.practicum.ewm.mainservice.model;
 
 import lombok.*;
+import ru.practicum.ewm.mainservice.categories.Categories;
+import ru.practicum.ewm.mainservice.events.EventState;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,24 +30,42 @@ public class Events {
     private String description;
 
     @Column(name = "event_date", nullable = false)
-    private LocalDateTime event_date;
+    private LocalDateTime eventDate;
+
+    @Column(name = "created", nullable = false)
+    private LocalDateTime created;
+
+    @Column(name = "published", nullable = false)
+    private LocalDateTime publishedOn;
 
     @Column(name = "paid", nullable = false)
     private Boolean paid;
 
     @Column(name = "participant_limit", nullable = false)
-    private Integer participant_limit;
+    private Integer participantLimit;
 
     @Column(name = "requestModeration", nullable = false)
     private Boolean requestModeration;
 
+    @Enumerated
+    @Column(name = "state", nullable = false)
+    private EventState state;
+
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
+
+    @Column(name = "views")
+    private Long views;
+
+    @Column(name = "confirmed_requests")
+    private Long confirmedRequests;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Categories category;
-
-    @ManyToOne
-    @JoinColumn(name = "location_id")
-    private Locations location;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
