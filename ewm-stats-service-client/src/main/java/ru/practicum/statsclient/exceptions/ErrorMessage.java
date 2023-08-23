@@ -8,13 +8,13 @@ import java.util.Map;
 
 public class ErrorMessage {
 
-    public static Map<String, String> buildRestApiErrorResponse(HttpStatus httpStatus, String msg) {
-        Map<String, String> errorMsg = new HashMap<>();
+    public static Map<String, Object> buildRestApiErrorResponse(HttpStatus httpStatus, Object msg) {
+        Map<String, Object> errorMsg = new HashMap<>();
 
+        errorMsg.put("status", String.valueOf(httpStatus.value()));
+        errorMsg.put("reason", httpStatus.getReasonPhrase());
+        errorMsg.put("message", msg);
         errorMsg.put("timestamp", LocalDateTime.now().toString());
-        errorMsg.put("status code", String.valueOf(httpStatus.value()));
-        errorMsg.put("error message", httpStatus.getReasonPhrase());
-        errorMsg.put("error", msg);
 
         return errorMsg;
     }
