@@ -32,18 +32,18 @@ public class PublicEventsController {
     private final StatisticsService statisticsService;
 
     @GetMapping
-    public ResponseEntity<Object> getEventsByQuery( @RequestParam(name = "text", required = false) String searchString,
-                                             @RequestParam(name = "categories", required = false) List<Long> categoriesList,
-                                             @RequestParam(name = "paid", required = false) Boolean paid,
-                                             @RequestParam(name = "rangeStart", required = false) String rangeStart,
-                                             @RequestParam(name = "rangeEnd", required = false) String rangeEnd,
-                                             @RequestParam(name = "onlyAvailable", required = false) Boolean onlyAvailable,
-                                             @RequestParam(name = "sort", required = false) String sort,
-                                             @Valid @RequestParam(name = "from", required = false, defaultValue = 0 + "")
-                                             @PositiveOrZero(message = "Параметр 'from' должен быть положительным числом") int from,
-                                             @Valid @RequestParam(name = "size", required = false, defaultValue = 10 + "")
-                                             @Positive(message = "Параметр 'size' должен быть положительным числом больше 0") int size,
-                                             HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> getEventsByQuery(@RequestParam(name = "text", required = false) String searchString,
+                                                   @RequestParam(name = "categories", required = false) List<Long> categoriesList,
+                                                   @RequestParam(name = "paid", required = false) Boolean paid,
+                                                   @RequestParam(name = "rangeStart", required = false) String rangeStart,
+                                                   @RequestParam(name = "rangeEnd", required = false) String rangeEnd,
+                                                   @RequestParam(name = "onlyAvailable", required = false) Boolean onlyAvailable,
+                                                   @RequestParam(name = "sort", required = false) String sort,
+                                                   @Valid @RequestParam(name = "from", required = false, defaultValue = 0 + "")
+                                                       @PositiveOrZero(message = "Параметр 'from' должен быть положительным числом") int from,
+                                                   @Valid @RequestParam(name = "size", required = false, defaultValue = 10 + "")
+                                                       @Positive(message = "Параметр 'size' должен быть положительным числом больше 0") int size,
+                                                   HttpServletRequest httpServletRequest) {
         LocalDateTime ldt = LocalDateTime.now();
 
         var ret = publicEventService.getFilteredEventList(searchString, categoriesList,  paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);

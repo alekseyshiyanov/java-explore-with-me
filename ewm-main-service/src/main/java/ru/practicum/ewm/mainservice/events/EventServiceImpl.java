@@ -86,14 +86,14 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
         var stateAction = prepareUpdateStateAction(eventDto.getStateAction());
         var dataForUpdate = EventsMapper.fromDto(eventDto);
 
-        if(eventState == EventState.PUBLISHED) {
+        if (eventState == EventState.PUBLISHED) {
             throw sendErrorMessage(HttpStatus.CONFLICT, "Отменить можно только отмененные события или события в состоянии " +
                     "ожидания модерации. Текущее состояние: " + eventState.name());
         }
 
         switch (stateAction) {
             case CANCEL_REVIEW:
-                if(eventState == EventState.PENDING) {
+                if (eventState == EventState.PENDING) {
                     dataForUpdate.setState(EventState.CANCELED);
                 } else {
                     throw sendErrorMessage(HttpStatus.CONFLICT, "Отменить можно события только в состоянии " +
@@ -123,12 +123,12 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
     public ParticipationRequestDto createRequest(Long userId, Long eventId) {
         Events event = getEventById(eventId);
 
-        if(event.getUser().getId().equals(userId)) {
+        if (event.getUser().getId().equals(userId)) {
             throw sendErrorMessage(HttpStatus.CONFLICT, "Инициатор события не может добавить запрос " +
                     "на участие в своём событии");
         }
 
-        if(event.getState() != EventState.PUBLISHED) {
+        if (event.getState() != EventState.PUBLISHED) {
             throw sendErrorMessage(HttpStatus.CONFLICT, "Событие с id = " + eventId
                     + " неопубликовано. State = " + event.getState().name());
         }
@@ -136,7 +136,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
         var participants = event.getConfirmedRequests();
         var participantLimit = event.getParticipantLimit();
 
-        if((participants >= participantLimit) && (participantLimit != 0)) {
+        if ((participants >= participantLimit) && (participantLimit != 0)) {
             throw sendErrorMessage(HttpStatus.CONFLICT, "Достигнут лимит запросов на участие. " +
                     "Текущий лимит = " + event.getParticipantLimit());
         }
@@ -156,7 +156,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
 
         var r = requestsRepository.save(requests);
 
-        if(r.getStatus() == RequestStatus.CONFIRMED) {
+        if (r.getStatus() == RequestStatus.CONFIRMED) {
             eventsRepository.increaseConfirmedRequests(eventId, 1L);
         }
 
@@ -204,7 +204,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
         var idsList = dto.getRequestIds();
         var requestsIdsCount = idsList.size();
 
-        if(requestsCount != requestsIdsCount) {
+        if (requestsCount != requestsIdsCount) {
             throw sendErrorMessage(HttpStatus.CONFLICT, "Не все заявки из списка имеют статус PENDING");
         }
 
@@ -219,14 +219,14 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
 
         Long participantsLeft = participantLimit - confirmedRequests;
 
-        switch(requestStatus) {
+        switch (requestStatus) {
             case CONFIRMED:
-                    if(participantsLeft >= requestsIdsCount) {
+                    if (participantsLeft >= requestsIdsCount) {
                         confirmedRequestsList = changeRequestStatus(idsList, RequestStatus.CONFIRMED);
                         rejectedRequestsList = Collections.emptyList();
 
                         eventsRepository.increaseConfirmedRequests(event.getId(), (long) requestsIdsCount);
-                    } else if(participantsLeft > 0) {
+                    } else if (participantsLeft > 0) {
                         var cl = idsList.subList(0, participantsLeft.intValue());
                         var rl = idsList.subList(participantsLeft.intValue(), idsList.size());
 
@@ -293,7 +293,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
             whereFlag = false;
         }
 
-        if((startTime != null) && (endTime != null)) {
+        if ((startTime != null) && (endTime != null)) {
             queryString.append(buildWhereString(whereFlag));
             queryString.append(" e.eventDate BETWEEN ?");
             queryString.append(paramIndex++);
@@ -387,11 +387,11 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
         var endTime = prepareTime(rangeEnd);
         var sortType = prepareSortType(sort);
 
-        if(onlyAvailable == null) {
+        if (onlyAvailable == null) {
             onlyAvailable = false;
         }
 
-        if((searchString != null) && (!searchString.isBlank())) {
+        if ((searchString != null) && (!searchString.isBlank())) {
             queryString.append(buildWhereString(whereFlag));
             queryString.append(" (setweight(to_tsvector(e.annotation),'A')" +
                     " || setweight(to_tsvector(e.description), 'B')) @@ plainto_tsquery('");
@@ -410,7 +410,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
 
         queryString.append(buildWhereString(whereFlag));
         whereFlag = false;
-        if((startTime != null) && (endTime != null)) {
+        if ((startTime != null) && (endTime != null)) {
             queryString.append(" e.event_date BETWEEN ?");
             queryString.append(paramIndex++);
             queryString.append(" AND ?");
@@ -420,18 +420,18 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
             queryString.append(paramIndex++);
         }
 
-        if(paid != null) {
+        if (paid != null) {
             queryString.append(buildWhereString(whereFlag));
             queryString.append(" e.paid = ?");
             queryString.append(paramIndex);
         }
 
-        if(onlyAvailable) {
+        if (onlyAvailable) {
             queryString.append(buildWhereString(whereFlag));
             queryString.append(" e.participant_limit > e.confirmed_requests");
         }
 
-        switch(sortType) {
+        switch (sortType) {
             case ID:
                 queryString.append(" order by e.id");
                 break;
@@ -458,7 +458,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
             query.setParameter(paramIndex++, LocalDateTime.now());
         }
 
-        if(paid != null) {
+        if (paid != null) {
             query.setParameter(paramIndex, paid);
         }
 
@@ -483,8 +483,8 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
     }
 
     private void validateIdsList(List<Long> idsList) {
-        for(Long id : idsList) {
-            if(id <= 0) {
+        for (Long id : idsList) {
+            if (id <= 0) {
                 throw sendErrorMessage(HttpStatus.BAD_REQUEST, "Идентификатор должен быть больше 0. Value: " + id);
             }
         }
@@ -495,7 +495,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
     }
 
     private LocalDateTime prepareTime(String time) {
-        if((time == null) || (time.trim().isBlank())) {
+        if ((time == null) || (time.trim().isBlank())) {
             return null;
         }
 
@@ -520,7 +520,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
 
         List<EventState> esl = new ArrayList<>();
 
-        for(String s : statesList) {
+        for (String s : statesList) {
             var es = EventState.from(s).orElseThrow(() ->
                     sendErrorMessage(HttpStatus.BAD_REQUEST, "Неверный код статуса события. EventState: " + s));
             esl.add(es);
@@ -579,7 +579,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
     }
 
     private void checkUserExists(Long userId, HttpStatus httpStatus) {
-        if(!usersRepository.existsById(userId)) {
+        if (!usersRepository.existsById(userId)) {
             throw sendErrorMessage(httpStatus, "Пользователь с id = " + userId + " не найден в базе данных");
         }
     }

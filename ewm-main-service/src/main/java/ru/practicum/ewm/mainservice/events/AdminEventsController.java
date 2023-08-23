@@ -24,6 +24,7 @@ import java.util.List;
 public class AdminEventsController {
 
     private final AdminEventService adminEventService;
+
     @GetMapping
     public ResponseEntity<Object> findEvents(@RequestParam(name = "users", required = false) List<Long> usersList,
                                              @RequestParam(name = "states", required = false) List<String> statesList,

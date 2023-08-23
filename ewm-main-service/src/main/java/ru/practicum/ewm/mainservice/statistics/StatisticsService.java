@@ -42,12 +42,12 @@ public class StatisticsService {
     public Long getEventViewFromUniqueIpAddress(Long eventId) {
         List<String> urisList = Arrays.asList("/events/" + eventId);
         var ret = client.getStats(LocalDateTime.now().minusYears(100L).format(dtf), LocalDateTime.now().plusYears(100L).format(dtf), urisList, true);
-        if((ret.getStatusCode() == HttpStatus.OK) && (ret.hasBody())) {
+        if ((ret.getStatusCode() == HttpStatus.OK) && (ret.hasBody())) {
             ObjectMapper om = new ObjectMapper();
             try {
                 String source = om.writeValueAsString(ret.getBody());
                 List<StatsDto> dto = om.readValue(source, new TypeReference<>() {});
-                if(dto.isEmpty()) {
+                if (dto.isEmpty()) {
                     return 0L;
                 }
                 return dto.get(0).getHits();

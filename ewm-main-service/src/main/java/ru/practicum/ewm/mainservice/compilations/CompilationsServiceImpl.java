@@ -45,7 +45,7 @@ public class CompilationsServiceImpl implements PublicCompilationsService, Admin
     public List<CompilationDto> getCompilationList(Boolean pinned, int from, int size) {
         Query query;
 
-        if(pinned == null) {
+        if (pinned == null) {
             query = entityManager.createQuery("SELECT c FROM Compilations c ORDER BY c.id ASC", Compilations.class);
         } else {
             query = entityManager.createQuery("SELECT c FROM Compilations c WHERE c.pinned = ?1 ORDER BY c.id ASC", Compilations.class)
@@ -64,14 +64,14 @@ public class CompilationsServiceImpl implements PublicCompilationsService, Admin
         var eventIdsList = validateIdsList(inputDto.getEvents());
         var eventList = eventsRepository.getEventsByIdIn(eventIdsList);
 
-        if(eventList.size() != eventIdsList.size()) {
+        if (eventList.size() != eventIdsList.size()) {
             throw sendErrorMessage(HttpStatus.BAD_REQUEST, "События для подборки отсутствуют в базе данных");
         }
 
         var compilation = CompilationsMapper.fromDto(inputDto);
         List<CompilationArray> newCAList = new ArrayList<>();
 
-        for(Events event : eventList) {
+        for (Events event : eventList) {
             newCAList.add(new CompilationArray(null, compilation, event));
         }
 
@@ -94,7 +94,7 @@ public class CompilationsServiceImpl implements PublicCompilationsService, Admin
         var newCompilation = CompilationsMapper.fromDto(inputDto);
         var eventIdsList = validateIdsList(inputDto.getEvents());
 
-        if(eventIdsList != null) {
+        if (eventIdsList != null) {
             var eventList = eventsRepository.getEventsByIdIn(eventIdsList);
 
             if (eventList.size() != eventIdsList.size()) {
@@ -103,7 +103,7 @@ public class CompilationsServiceImpl implements PublicCompilationsService, Admin
 
             List<CompilationArray> newCAList = new ArrayList<>();
 
-            for(Events event : eventList) {
+            for (Events event : eventList) {
                 newCAList.add(new CompilationArray(null, compilation, event));
             }
 
@@ -123,7 +123,7 @@ public class CompilationsServiceImpl implements PublicCompilationsService, Admin
 
     private List<Long> validateIdsList(List<Long> idsList) {
         if ((idsList != null) && (!idsList.isEmpty())) {
-            if(idsList.stream().anyMatch(id -> id <= 0)) {
+            if (idsList.stream().anyMatch(id -> id <= 0)) {
                 throw sendErrorMessage(HttpStatus.BAD_REQUEST, "Идентификаторы событий должны быть положительным числом");
             }
         }
