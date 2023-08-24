@@ -23,9 +23,9 @@ public class PublicCategoriesController {
     private final PublicCategoryService publicCategoryService;
 
     @GetMapping
-    public ResponseEntity<Object> getCategories(@Valid @RequestParam(name = "from", required = false, defaultValue = 0 + "")
+    public ResponseEntity<Object> getCategories(@Valid @RequestParam(name = "from", defaultValue = "0")
                                                       @PositiveOrZero(message = "Параметр запроса 'from' должен быть больше либо равен 0") Integer from,
-                                                      @Valid @RequestParam(name = "size", required = false, defaultValue = 10 + "")
+                                                      @Valid @RequestParam(name = "size", defaultValue = "10")
                                                       @Positive(message = "Параметр запроса 'size' должен быть больше 0") Integer size) {
         log.info("Запрос на получение списка категорий с параметрами: from = {}, size = {}", from, size);
         return new ResponseEntity<>(publicCategoryService.getCategories(from, size), HttpStatus.OK);

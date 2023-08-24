@@ -29,9 +29,9 @@ public class PrivateEventsController {
     public ResponseEntity<Object> getEvents(@Valid @PathVariable("userId")
                                                    @NotNull(message = "Значение 'userId' не может быть равно null")
                                                    @Positive(message = "Значение 'userId' должно быть положительным числом больше нуля") Long userId,
-                                            @Valid @RequestParam(name = "from", required = false, defaultValue = 0 + "")
+                                            @Valid @RequestParam(name = "from", defaultValue = "0")
                                                    @PositiveOrZero(message = "Параметр запроса 'from' должен быть больше либо равен 0") Integer from,
-                                            @Valid @RequestParam(name = "size", required = false, defaultValue = 10 + "")
+                                            @Valid @RequestParam(name = "size", defaultValue = "10")
                                                    @Positive(message = "Параметр запроса 'size' должен быть больше 0") Integer size) {
         log.info("Запрос на получение списка событий, добавленных пользователем с userId = {} с параметрами:, from = {}, size = {}", userId, from, size);
         return new ResponseEntity<>(privateEventsService.getEventsListByUser(userId, from, size), HttpStatus.OK);

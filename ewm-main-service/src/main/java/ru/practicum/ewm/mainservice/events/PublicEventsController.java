@@ -39,9 +39,9 @@ public class PublicEventsController {
                                                    @RequestParam(name = "rangeEnd", required = false) String rangeEnd,
                                                    @RequestParam(name = "onlyAvailable", required = false) Boolean onlyAvailable,
                                                    @RequestParam(name = "sort", required = false) String sort,
-                                                   @Valid @RequestParam(name = "from", required = false, defaultValue = 0 + "")
+                                                   @Valid @RequestParam(name = "from", defaultValue = "0")
                                                        @PositiveOrZero(message = "Параметр 'from' должен быть положительным числом") int from,
-                                                   @Valid @RequestParam(name = "size", required = false, defaultValue = 10 + "")
+                                                   @Valid @RequestParam(name = "size", defaultValue = "10")
                                                        @Positive(message = "Параметр 'size' должен быть положительным числом больше 0") int size,
                                                    HttpServletRequest httpServletRequest) {
         LocalDateTime ldt = LocalDateTime.now();

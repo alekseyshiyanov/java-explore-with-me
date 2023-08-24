@@ -26,9 +26,9 @@ public class AdminUsersController {
 
     @GetMapping
     public ResponseEntity<Object> getUsers(@RequestParam(name = "ids", required = false) List<Long> ids,
-                                           @Valid @RequestParam(name = "from", required = false, defaultValue = 0 + "")
+                                           @Valid @RequestParam(name = "from", defaultValue = "0")
                                                   @PositiveOrZero(message = "Параметр запроса 'from' должен быть больше либо равен 0") Integer from,
-                                           @Valid @RequestParam(name = "size", required = false, defaultValue = 10 + "")
+                                           @Valid @RequestParam(name = "size", defaultValue = "10")
                                                   @Positive(message = "Параметр запроса 'size' должен быть больше 0") Integer size) {
         log.info("Запрос на получение списка пользователей с параметрами: ids = {}, from = {}, size = {}", ids, from, size);
         return new ResponseEntity<>(usersService.getUsers(ids, from, size), HttpStatus.OK);

@@ -25,7 +25,6 @@ import javax.persistence.Query;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,6 +33,7 @@ import org.springframework.beans.BeanWrapperImpl;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -518,13 +518,10 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
             return null;
         }
 
-        List<EventState> esl = new ArrayList<>();
-
-        for (String s : statesList) {
-            var es = EventState.from(s).orElseThrow(() ->
-                    sendErrorMessage(HttpStatus.BAD_REQUEST, "Неверный код статуса события. EventState: " + s));
-            esl.add(es);
-        }
+        List<EventState> esl = statesList.stream()
+                .map(s -> EventState.from(s).orElseThrow(() ->
+                        sendErrorMessage(HttpStatus.BAD_REQUEST, "Неверный код статуса события. EventState: " + s)))
+                .collect(Collectors.toList());
 
         return esl;
     }

@@ -26,9 +26,9 @@ public class PublicCompilationsController {
 
     @GetMapping
     public ResponseEntity<Object> getCompilationsList(@RequestParam(name = "pinned", required = false) Boolean pinned,
-                                                      @Valid @RequestParam(name = "from", required = false, defaultValue = 0 + "")
+                                                      @Valid @RequestParam(name = "from", defaultValue = "0")
                                                         @PositiveOrZero(message = "Параметр 'from' должен быть положительным числом") int from,
-                                                      @Valid @RequestParam(name = "size", required = false, defaultValue = 10 + "")
+                                                      @Valid @RequestParam(name = "size", defaultValue = "10")
                                                         @Positive(message = "Параметр 'size' должен быть положительным числом больше 0") int size) {
         return new ResponseEntity<>(publicCompilationsService.getCompilationList(pinned, from, size), HttpStatus.OK);
     }
