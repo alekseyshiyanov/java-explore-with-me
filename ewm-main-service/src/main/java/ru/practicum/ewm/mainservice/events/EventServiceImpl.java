@@ -518,12 +518,10 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
             return null;
         }
 
-        List<EventState> esl = statesList.stream()
+        return statesList.stream()
                 .map(s -> EventState.from(s).orElseThrow(() ->
                         sendErrorMessage(HttpStatus.BAD_REQUEST, "Неверный код статуса события. EventState: " + s)))
                 .collect(Collectors.toList());
-
-        return esl;
     }
 
     private EventSortTypes prepareSortType(String sortType) {
