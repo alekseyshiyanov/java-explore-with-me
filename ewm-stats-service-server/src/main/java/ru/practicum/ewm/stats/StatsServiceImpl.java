@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriUtils;
 import ru.practicum.ewm.stats.model.Apps;
 import ru.practicum.ewm.stats.model.Hits;
 import ru.practicum.ewm.stats.repository.AppsRepository;
@@ -40,8 +41,12 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public List<StatsDto> getStats(String start, String end, List<String> uris, Boolean unique) {
-        LocalDateTime startTime = LocalDateTime.parse(start.trim(), dtf);
-        LocalDateTime endTime = LocalDateTime.parse(end.trim(), dtf);
+        LocalDateTime startTime = LocalDateTime.parse(UriUtils.decode(start, "UTF-8"), dtf);
+        LocalDateTime endTime = LocalDateTime.parse(UriUtils.decode(end, "UTF-8"), dtf);
+
+        if (startTime.isAfter(endTime)) {
+            throw sendErrorMessage(HttpStatus.BAD_REQUEST, "Диапазон дат задан неверно");
+        }
 
         if ((uris == null) || (uris.isEmpty())) {
             return getStatsByTime(startTime, endTime, unique);

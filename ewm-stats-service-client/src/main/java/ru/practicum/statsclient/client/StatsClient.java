@@ -62,8 +62,8 @@ public class StatsClient extends BaseClient {
             throw new ClientErrorException("Параметр 'endTime' не может быть пустым или состоять из пробелов");
         }
 
-        String encodedStartTime = UriUtils.encodePath(startTime, "UTF-8");
-        String encodedEndTime = UriUtils.encodePath(endTime, "UTF-8");
+        String encodedStartTime = UriUtils.encode(startTime, "UTF-8");
+        String encodedEndTime = UriUtils.encode(endTime, "UTF-8");
 
         Map<String, Object> parameters = new HashMap<>();
 

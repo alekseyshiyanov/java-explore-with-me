@@ -15,7 +15,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/statsdb
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-      - TZ=Europe/Moscow
+#      - TZ=Europe/Moscow
 
   stats-db:
     build:
@@ -29,7 +29,7 @@ services:
       - POSTGRES_DB=statsdb
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-      - TZ=Europe/Moscow
+#      - TZ=Europe/Moscow
 
   ewm-service:
     build:
@@ -43,10 +43,11 @@ services:
     depends_on:
       - ewm-db
     environment:
+      - STATS_SEVER_URL=http://stats-server:9090
       - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/ewmdb
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-      - TZ=Europe/Moscow
+#      - TZ=Europe/Moscow
 
   ewm-db:
     build:
@@ -60,4 +61,4 @@ services:
       - POSTGRES_DB=ewmdb
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-      - TZ=Europe/Moscow
+#      - TZ=Europe/Moscow
