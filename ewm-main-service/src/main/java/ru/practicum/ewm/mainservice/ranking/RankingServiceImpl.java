@@ -156,9 +156,11 @@ public class RankingServiceImpl implements LikesService, RankingService {
         var sortType = prepareRankingSortType(sort);
 
         try {
-            StringBuilder queryString = new StringBuilder("select count(l), " + sumQuery + ", (count(l) / (count(l) + " + Double.valueOf(minimumVotes) +
-                    ")) * (1.0 * " + sumQuery + " / count(l)) + (" + Double.valueOf(minimumVotes) +
-                    " / (count(l) + " + Double.valueOf(minimumVotes) + ")) * " + averageRating + " as rating, e" +
+            StringBuilder queryString = new StringBuilder("select count(l), " + sumQuery + ", " +
+                    "case when count(l) > " + minimumVotes + " then ((count(l) / (count(l) + "
+                    + Double.valueOf(minimumVotes) + ")) * (1.0 * " + sumQuery + " / count(l)) + ("
+                    + Double.valueOf(minimumVotes) + " / (count(l) + "
+                    + Double.valueOf(minimumVotes) + ")) * " + averageRating + ") else 0 end as rating, e" +
                     " from Likes l, Events e where l.event.id = e.id group by e.id");
 
             switch(sortType) {
