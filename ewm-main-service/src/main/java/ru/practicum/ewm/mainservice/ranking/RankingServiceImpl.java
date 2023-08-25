@@ -77,7 +77,7 @@ public class RankingServiceImpl implements LikesService, RankingService {
 
         Query query;
 
-        if(likeQueryType == LikeQueryType.ALL) {
+        if (likeQueryType == LikeQueryType.ALL) {
             query = entityManager.createQuery("SELECT l FROM Likes l WHERE l.event.id = ?1 ORDER BY l.id");
         } else {
             query = entityManager.createQuery("SELECT l FROM Likes l WHERE l.event.id = ?1 and l.grade = ?2 ORDER BY l.id");
@@ -111,7 +111,7 @@ public class RankingServiceImpl implements LikesService, RankingService {
 
         Query query;
 
-        if(likeQueryType == LikeQueryType.ALL) {
+        if (likeQueryType == LikeQueryType.ALL) {
             query = entityManager.createQuery("SELECT l FROM Likes l WHERE l.user.id = ?1 ORDER BY l.id");
         } else {
             query = entityManager.createQuery("SELECT l FROM Likes l WHERE l.user.id = ?1 and l.grade = ?2 ORDER BY l.id");
@@ -163,7 +163,7 @@ public class RankingServiceImpl implements LikesService, RankingService {
                     + Double.valueOf(minimumVotes) + ")) * " + averageRating + ") else 0 end as rating, e" +
                     " from Likes l, Events e where l.event.id = e.id group by e.id");
 
-            switch(sortType) {
+            switch (sortType) {
                 case NONE:
                     queryString.append(" order by e.d asc");
                     break;
