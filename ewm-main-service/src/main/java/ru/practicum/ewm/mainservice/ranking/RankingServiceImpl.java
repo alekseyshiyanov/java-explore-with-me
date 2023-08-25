@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.ewm.mainservice.events.dto.EventsMapper;
 import ru.practicum.ewm.mainservice.model.*;
 import ru.practicum.ewm.mainservice.ranking.dto.LikesDto;
 import ru.practicum.ewm.mainservice.ranking.dto.LikesMapper;
@@ -57,7 +56,7 @@ public class RankingServiceImpl implements LikesService, RankingService {
         LikeState state = prepareLikeState(grade);
 
         var event = getEventById(eventId);
-        if (event.getUser().getId() == userId) {
+        if (event.getUser().getId().equals(userId)) {
             throw sendErrorMessage(HttpStatus.CONFLICT, "Инициатор не может оценить свое событие");
         }
 
@@ -70,11 +69,7 @@ public class RankingServiceImpl implements LikesService, RankingService {
                 .grade(state)
                 .build();
 
-        var ret = likesRepository.save(newLike);
-
-        var retDto = LikesMapper.toDto(ret);
-
-        return retDto;
+        return LikesMapper.toDto(likesRepository.save(newLike));
     }
 
     @Override
