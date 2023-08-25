@@ -39,6 +39,6 @@ public class RankingController {
                                                        @PositiveOrZero(message = "Параметр 'from' должен быть положительным числом") int from,
                                                    @Valid @RequestParam(name = "size", defaultValue = "10")
                                                        @Positive(message = "Параметр 'size' должен быть положительным числом больше 0") int size) {
-        return new ResponseEntity<>(rankingService.getSortedRanking(sort, from, size), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(rankingService.getSortedRanking(sort, from, size), HttpStatus.OK);
     }
 }
