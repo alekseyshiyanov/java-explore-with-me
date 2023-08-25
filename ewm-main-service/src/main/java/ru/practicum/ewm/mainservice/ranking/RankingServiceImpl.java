@@ -48,8 +48,6 @@ public class RankingServiceImpl implements LikesService, RankingService {
     private Long minimumVotes;
 
     private final String sumQuery = "sum(case l.grade when ?1 then 1 else 0 end)";
-    private final String eventLikesCountQuery = "SELECT count(l) FROM Likes l WHERE l.event.id = ?1";
-    private final String positiveLikesCountQuery = "SELECT sum(case l.grade when ?1 then 1 else 0 end) FROM Likes l WHERE l.event.id = ?2";
 
     @Override
     public LikesDto evaluateEvent(Long eventId, Long userId, String grade) {
