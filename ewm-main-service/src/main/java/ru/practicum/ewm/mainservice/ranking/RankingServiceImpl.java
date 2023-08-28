@@ -32,7 +32,6 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class RankingServiceImpl implements LikesService, RankingService {
 
     private final LikesRepository likesRepository;
@@ -49,6 +48,7 @@ public class RankingServiceImpl implements LikesService, RankingService {
 
     private final String sumQuery = "sum(case l.grade when ?1 then 1 else 0 end)";
 
+    @Transactional
     @Override
     public LikesDto evaluateEvent(Long eventId, Long userId, String grade) {
         LikeState state = prepareLikeState(grade);
@@ -70,6 +70,7 @@ public class RankingServiceImpl implements LikesService, RankingService {
         return LikesMapper.toDto(likesRepository.save(newLike));
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<LikesDto> getEventLikes(Long eventId, String queryType, int from, int size) {
         var likeQueryType = prepareLikeQueryType(queryType);
@@ -96,6 +97,7 @@ public class RankingServiceImpl implements LikesService, RankingService {
         return LikesMapper.toDto(query.getResultList());
     }
 
+    @Transactional
     @Override
     public void deleteEventEvaluate(Long eventId, Long userId) {
         var like = likesRepository.findLikesByEventIdAndUserId(eventId, userId).orElseThrow(() ->
@@ -104,6 +106,7 @@ public class RankingServiceImpl implements LikesService, RankingService {
         likesRepository.delete(like);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<LikesDto> getUserLikes(Long userId, String queryType, int from, int size) {
         var likeQueryType = prepareLikeQueryType(queryType);
@@ -130,6 +133,7 @@ public class RankingServiceImpl implements LikesService, RankingService {
         return LikesMapper.toDto(query.getResultList());
     }
 
+    @Transactional(readOnly = true)
     @Override
     public RankingDto getEventRanking(Long eventId) {
         checkEventExists(eventId, HttpStatus.NOT_FOUND);
@@ -151,6 +155,7 @@ public class RankingServiceImpl implements LikesService, RankingService {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<RankingDto> getSortedRanking(String sort, int from, int size) {
         var sortType = prepareRankingSortType(sort);
@@ -184,6 +189,7 @@ public class RankingServiceImpl implements LikesService, RankingService {
         }
     }
 
+    @Transactional
     @Override
     public LikesDto updateEventEvaluate(Long eventId, Long userId, String grade) {
         LikeState state = prepareLikeState(grade);
