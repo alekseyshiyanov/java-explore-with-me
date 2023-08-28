@@ -64,7 +64,8 @@
               "enum": [
                 "DISLIKE",
                 "LIKE"
-              ]
+              ],
+              "default": "DISLIKE"
             }
           }
         ],
@@ -112,8 +113,20 @@
             }
           },
           "409": {
-            "description": "Попытка поставить оценку собственному событию"
-          }
+            "description": "Попытка поставить оценку собственному событию",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "CONFLICT",
+                  "reason": "Собственное событие",
+                  "message": "Инициатор не может оценить свое событие",
+                  "timestamp": "2022-09-07 09:10:50"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }          }
         }
       },
       "patch": {
@@ -154,7 +167,8 @@
               "enum": [
                 "DISLIKE",
                 "LIKE"
-              ]
+              ],
+              "default": "DISLIKE"
             }
           }
         ],
