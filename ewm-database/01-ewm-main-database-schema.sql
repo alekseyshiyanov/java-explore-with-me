@@ -91,3 +91,5 @@ CREATE TABLE IF NOT EXISTS public.likes (
                                                 ON UPDATE CASCADE,
                                             CONSTRAINT Unique_Like UNIQUE (user_id, event_id)
 );
+
+CREATE INDEX IF NOT EXISTS likes_user_id_index ON public.likes USING btree (user_id) WITH (FILLFACTOR=75);
