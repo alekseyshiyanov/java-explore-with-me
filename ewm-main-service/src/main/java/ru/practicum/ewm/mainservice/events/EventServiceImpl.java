@@ -35,7 +35,6 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -58,11 +57,13 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
         return EventsMapper.toFullDto(eventsRepository.save(prepareEventData(userId, eventDto)));
     }
 
+    @Transactional(readOnly = true)
     @Override
     public EventFullDto getEvent(Long userId, Long eventId) {
         return EventsMapper.toFullDto(getEventByIdAndUserId(userId, eventId));
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<EventShortDto> getEventsListByUser(Long userId, int from, int size) {
         checkUserExists(userId, HttpStatus.BAD_REQUEST);
@@ -163,6 +164,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
         return RequestMapper.toDto(r);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<ParticipationRequestDto> getRequests(Long userId) {
         checkUserExists(userId, HttpStatus.NOT_FOUND);
@@ -188,6 +190,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
         return RequestMapper.toDto(r);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<ParticipationRequestDto> getEventByUserRequest(Long userId, Long eventId) {
         var ret = requestsRepository.getRequestsByUserIdAndEventId(userId, eventId);
@@ -257,6 +260,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
         return requestsRepository.findAllByIdIsIn(idsList);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Events> getFilteredEventList(List<Long> usersList, List<String> statesList,
                                                    List<Long> categoriesList, String rangeStart, String rangeEnd,
@@ -373,6 +377,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
         return eventsRepository.save(event);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Events> getFilteredEventList(String searchString, List<Long> categoriesList,
                                              Boolean paid, String rangeStart, String rangeEnd,
@@ -468,6 +473,7 @@ public class EventServiceImpl implements AdminEventService, PrivateEventsService
         return query.getResultList();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Events getPublishedEventsById(Long eventId) {
         var ret = eventsRepository.findByIdAndState(eventId, EventState.PUBLISHED).orElseThrow(() ->
