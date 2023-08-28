@@ -16,7 +16,7 @@ public class Likes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -24,7 +24,7 @@ public class Likes {
 
     @ManyToOne
     @JoinColumn(name = "event_id")
-    Events event;
+    private Events event;
 
     @Enumerated
     @Column(name = "grade", nullable = false)
