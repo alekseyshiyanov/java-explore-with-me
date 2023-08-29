@@ -16,14 +16,14 @@ public class Compilations {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Long id;
+    private Long id;
 
     @Column(name = "pinned", nullable = false)
-    Boolean pinned;
+    private Boolean pinned;
 
     @Column(name = "title", nullable = false)
-    String title;
+    private String title;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "compilation")
-    List<CompilationArray> compData;
+    private List<CompilationArray> compData;
 }

@@ -76,3 +76,20 @@ CREATE TABLE IF NOT EXISTS public.compilation_array    (
                                                                ON DELETE CASCADE
                                                                ON UPDATE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS public.likes (
+                                            id bigserial NOT NULL,
+                                            user_id bigint NOT NULL,
+                                            event_id bigint NOT NULL,
+                                            grade integer NOT NULL,
+                                            CONSTRAINT Likes_pkey PRIMARY KEY (id),
+                                            CONSTRAINT User_Likes_FK FOREIGN KEY (user_id) REFERENCES public.users (id)
+                                                ON DELETE RESTRICT
+                                                ON UPDATE CASCADE,
+                                            CONSTRAINT Event_Likes_FK FOREIGN KEY (event_id) REFERENCES public.events (id)
+                                                ON DELETE RESTRICT
+                                                ON UPDATE CASCADE,
+                                            CONSTRAINT Unique_Like UNIQUE (user_id, event_id)
+);
+
+CREATE INDEX IF NOT EXISTS likes_user_id_index ON public.likes USING btree (user_id) WITH (FILLFACTOR=75);

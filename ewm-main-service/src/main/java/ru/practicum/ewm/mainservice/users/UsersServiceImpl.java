@@ -30,6 +30,7 @@ public class UsersServiceImpl implements AdminUsersService {
         return UsersMapper.toDto(usersRepository.save(newUser));
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<UserDto> getUsers(List<Long> ids, int from, int size) {
         if ((ids == null) || (ids.isEmpty())) {

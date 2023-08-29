@@ -45,6 +45,7 @@ public class CategoryServiceImpl implements AdminCategoryService, PublicCategory
         return CategoryMapper.toDto(categoryRepository.save(newCategory));
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<CategoryDto> getCategories(int from, int size) {
         Query query = entityManager.createQuery("SELECT c FROM Categories c ORDER BY c.id");
@@ -53,6 +54,7 @@ public class CategoryServiceImpl implements AdminCategoryService, PublicCategory
         return CategoryMapper.toDto(query.getResultList());
     }
 
+    @Transactional(readOnly = true)
     @Override
     public CategoryDto getCategoryById(Long id) {
         Categories cat = categoryRepository.findById(id).orElseThrow(() -> {

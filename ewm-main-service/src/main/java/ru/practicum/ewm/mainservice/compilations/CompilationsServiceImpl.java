@@ -36,11 +36,13 @@ public class CompilationsServiceImpl implements PublicCompilationsService, Admin
 
     private final EntityManager entityManager;
 
+    @Transactional(readOnly = true)
     @Override
     public CompilationDto getCompilation(Long compilationId) {
         return CompilationsMapper.toDto(getCompilationById(compilationId));
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<CompilationDto> getCompilationList(Boolean pinned, int from, int size) {
         Query query;

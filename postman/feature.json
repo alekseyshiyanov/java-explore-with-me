@@ -1,0 +1,2344 @@
+{
+	"info": {
+		"_postman_id": "83e8f0bf-a8a3-41fc-baa6-755c7d017655",
+		"name": "Test Explore With Me - features",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Likes",
+			"item": [
+				{
+					"name": "evaluateEvent eventId = 1 userId = 1 default grade (DISLIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"DISLIKE\"').to.eql('DISLIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 1 userId = 2 with grade (DISLIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(409);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=DISLIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "DISLIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 1 userId = 3 with grade (LIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 3').to.eql(3);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"LIKE\"').to.eql('LIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=LIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "LIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 1 userId = 4 with grade (LIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 4').to.eql(4);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"LIKE\"').to.eql('LIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=LIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "LIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 1 userId = 5 with grade (DISLIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 5').to.eql(5);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"DISLIKE\"').to.eql('DISLIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?=DISLIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "DISLIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 1 userId = 6 with grade (DISLIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 6').to.eql(6);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"DISLIKE\"').to.eql('DISLIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=DISLIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "DISLIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 1 userId = 7 with grade (DISLIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 7').to.eql(7);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"DISLIKE\"').to.eql('DISLIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=DISLIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "DISLIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 1 userId = 8 with grade (LIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 8').to.eql(8);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"LIKE\"').to.eql('LIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=LIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "LIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 1 userId = 9 with grade (LIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 9').to.eql(9);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"LIKE\"').to.eql('LIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=LIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "LIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 1 userId = 10 with grade (LIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 10').to.eql(10);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"LIKE\"').to.eql('LIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=LIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "LIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 1 userId = 11 with grade (LIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 11').to.eql(11);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"LIKE\"').to.eql('LIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=LIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "LIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "11"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 2 userId = 1 with grade (LIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"LIKE\"').to.eql('LIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=LIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "LIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "2"
+								},
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 2 userId = 2 with grade (LIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"LIKE\"').to.eql('LIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=LIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "LIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "2"
+								},
+								{
+									"key": "userId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 2 userId = 3 with grade (LIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(409);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=LIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "LIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "2"
+								},
+								{
+									"key": "userId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 2 userId = 4 with grade (LIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 4').to.eql(4);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"LIKE\"').to.eql('LIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=LIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "LIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "2"
+								},
+								{
+									"key": "userId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 2 userId = 5 with grade (LIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 5').to.eql(5);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"LIKE\"').to.eql('LIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=LIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "LIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "2"
+								},
+								{
+									"key": "userId",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 2 userId = 6 with grade (DISLIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 6').to.eql(6);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"DISLIKE\"').to.eql('DISLIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=DISLIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "DISLIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "2"
+								},
+								{
+									"key": "userId",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 2 userId = 7 with grade (DISLIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 7').to.eql(7);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"DISLIKE\"').to.eql('DISLIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=DISLIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "DISLIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "2"
+								},
+								{
+									"key": "userId",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 2 userId = 8 with grade (DISLIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 8').to.eql(8);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"DISLIKE\"').to.eql('DISLIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=DISLIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "DISLIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "2"
+								},
+								{
+									"key": "userId",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent eventId = 2 userId = 9 with grade (DISLIKE)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 9').to.eql(9);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('grade');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"DISLIKE\"').to.eql('DISLIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=DISLIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "DISLIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "2"
+								},
+								{
+									"key": "userId",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEventLikes ALL",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like[0] 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('user');\r",
+									"    pm.expect(jsonData[0].user.id, '\"user.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like[1] 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('user');\r",
+									"    pm.expect(jsonData[1].user.id, '\"user.id\" must be 3').to.eql(3);\r",
+									"});\r",
+									"pm.test(\"Test like[2] 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[2]).to.have.property('user');\r",
+									"    pm.expect(jsonData[2].user.id, '\"user.id\" must be 4').to.eql(4);\r",
+									"});\r",
+									"pm.test(\"Test like[3] 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[3]).to.have.property('user');\r",
+									"    pm.expect(jsonData[3].user.id, '\"user.id\" must be 5').to.eql(5);\r",
+									"});\r",
+									"pm.test(\"Test like[4] 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[4]).to.have.property('user');\r",
+									"    pm.expect(jsonData[4].user.id, '\"user.id\" must be 6').to.eql(6);\r",
+									"});\r",
+									"pm.test(\"Test like[5] 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[5]).to.have.property('user');\r",
+									"    pm.expect(jsonData[5].user.id, '\"user.id\" must be 7').to.eql(7);\r",
+									"});\r",
+									"pm.test(\"Test like[6] 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[6]).to.have.property('user');\r",
+									"    pm.expect(jsonData[6].user.id, '\"user.id\" must be 8').to.eql(8);\r",
+									"});\r",
+									"pm.test(\"Test like[7] 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[7]).to.have.property('user');\r",
+									"    pm.expect(jsonData[7].user.id, '\"user.id\" must be 9').to.eql(9);\r",
+									"});\r",
+									"pm.test(\"Test like[8] 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[8]).to.have.property('user');\r",
+									"    pm.expect(jsonData[8].user.id, '\"user.id\" must be 10').to.eql(10);\r",
+									"});\r",
+									"pm.test(\"Test like[9] 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[9]).to.have.property('user');\r",
+									"    pm.expect(jsonData[9].user.id, '\"user.id\" must be 11').to.eql(11);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId?queryType=ALL&from=0&size=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId"
+							],
+							"query": [
+								{
+									"key": "queryType",
+									"value": "ALL"
+								},
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserLikes ALL",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like[0] 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('user');\r",
+									"    pm.expect(jsonData[0].user.id, '\"user.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like[1] 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('user');\r",
+									"    pm.expect(jsonData[1].user.id, '\"user.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like[0] 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('event');\r",
+									"    pm.expect(jsonData[0].event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like[1] 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('event');\r",
+									"    pm.expect(jsonData[1].event.id, '\"event.id\" must be 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test like[0] 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"    pm.expect(jsonData[0].id, '\"id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like[1] 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('id');\r",
+									"    pm.expect(jsonData[1].id, '\"id\" must be 11').to.eql(11);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/likes/users/:userId?queryType=ALL&from=0&size=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "queryType",
+									"value": "ALL"
+								},
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEventLikes LIKE",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test like[0] fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.property('user');\r",
+									"    pm.expect(jsonData[0]).to.have.property('event');\r",
+									"\r",
+									"    pm.expect(jsonData[0].id, '\"id\" must be 2').to.eql(2);\r",
+									"    pm.expect(jsonData[0].user.id, '\"user.id\" must be 3').to.eql(3);\r",
+									"    pm.expect(jsonData[0].event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test like[1] fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('id');\r",
+									"    pm.expect(jsonData[1]).to.have.property('user');\r",
+									"    pm.expect(jsonData[1]).to.have.property('event');\r",
+									"\r",
+									"    pm.expect(jsonData[1].id, '\"id\" must be 3').to.eql(3);\r",
+									"    pm.expect(jsonData[1].user.id, '\"user.id\" must be 4').to.eql(4);\r",
+									"    pm.expect(jsonData[1].event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test like[2] fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[2]).to.have.property('id');\r",
+									"    pm.expect(jsonData[2]).to.have.property('user');\r",
+									"    pm.expect(jsonData[2]).to.have.property('event');\r",
+									"\r",
+									"    pm.expect(jsonData[2].id, '\"id\" must be 7').to.eql(7);\r",
+									"    pm.expect(jsonData[2].user.id, '\"user.id\" must be 8').to.eql(8);\r",
+									"    pm.expect(jsonData[2].event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test like[3] fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[3]).to.have.property('id');\r",
+									"    pm.expect(jsonData[3]).to.have.property('user');\r",
+									"    pm.expect(jsonData[3]).to.have.property('event');\r",
+									"\r",
+									"    pm.expect(jsonData[3].id, '\"id\" must be 8').to.eql(8);\r",
+									"    pm.expect(jsonData[3].user.id, '\"user.id\" must be 9').to.eql(9);\r",
+									"    pm.expect(jsonData[3].event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test like[4] fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[4]).to.have.property('id');\r",
+									"    pm.expect(jsonData[4]).to.have.property('user');\r",
+									"    pm.expect(jsonData[4]).to.have.property('event');\r",
+									"\r",
+									"    pm.expect(jsonData[4].id, '\"id\" must be 9').to.eql(9);\r",
+									"    pm.expect(jsonData[4].user.id, '\"user.id\" must be 10').to.eql(10);\r",
+									"    pm.expect(jsonData[4].event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test like[5] fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[5]).to.have.property('id');\r",
+									"    pm.expect(jsonData[5]).to.have.property('user');\r",
+									"    pm.expect(jsonData[5]).to.have.property('event');\r",
+									"\r",
+									"    pm.expect(jsonData[5].id, '\"id\" must be 10').to.eql(10);\r",
+									"    pm.expect(jsonData[5].user.id, '\"user.id\" must be 11').to.eql(11);\r",
+									"    pm.expect(jsonData[5].event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId?queryType=POSITIVE&from=0&size=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId"
+							],
+							"query": [
+								{
+									"key": "queryType",
+									"value": "POSITIVE"
+								},
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserLikes LIKE",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test like[0] fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.property('user');\r",
+									"    pm.expect(jsonData[0]).to.have.property('event');\r",
+									"    pm.expect(jsonData[0]).to.have.property('grade');\r",
+									"\r",
+									"    pm.expect(jsonData[0].id, '\"id\" must be 11').to.eql(11);\r",
+									"    pm.expect(jsonData[0].user.id, '\"user.id\" must be 1').to.eql(1);\r",
+									"    pm.expect(jsonData[0].event.id, '\"event.id\" must be 2').to.eql(2);\r",
+									"    pm.expect(jsonData[0].grade, '\"grade\" must be \"LIKE\"').to.eql('LIKE');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/likes/users/:userId?queryType=POSITIVE&from=0&size=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "queryType",
+									"value": "POSITIVE"
+								},
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserLikes DISLIKE",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test like[0] fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.property('user');\r",
+									"    pm.expect(jsonData[0]).to.have.property('event');\r",
+									"    pm.expect(jsonData[0]).to.have.property('grade');\r",
+									"\r",
+									"    pm.expect(jsonData[0].id, '\"id\" must be 4').to.eql(4);\r",
+									"    pm.expect(jsonData[0].user.id, '\"user.id\" must be 5').to.eql(5);\r",
+									"    pm.expect(jsonData[0].event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"    pm.expect(jsonData[0].grade, '\"grade\" must be \"DISLIKE\"').to.eql('DISLIKE');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/likes/users/:userId?queryType=NEGATIVE&from=0&size=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "queryType",
+									"value": "NEGATIVE"
+								},
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEventLikes DISLIKE",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test like[0] fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"    pm.expect(jsonData[0]).to.have.property('user');\r",
+									"    pm.expect(jsonData[0]).to.have.property('event');\r",
+									"    pm.expect(jsonData[0]).to.have.property('grade');\r",
+									"\r",
+									"    pm.expect(jsonData[0].id, '\"id\" must be 1').to.eql(1);\r",
+									"    pm.expect(jsonData[0].user.id, '\"user.id\" must be 1').to.eql(1);\r",
+									"    pm.expect(jsonData[0].event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"    pm.expect(jsonData[0].grade, '\"grade\" must be \"DISLIKE\"').to.eql('DISLIKE');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test like[1] fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('id');\r",
+									"    pm.expect(jsonData[1]).to.have.property('user');\r",
+									"    pm.expect(jsonData[1]).to.have.property('event');\r",
+									"    pm.expect(jsonData[1]).to.have.property('grade');\r",
+									"\r",
+									"    pm.expect(jsonData[1].id, '\"id\" must be 4').to.eql(4);\r",
+									"    pm.expect(jsonData[1].user.id, '\"user.id\" must be 5').to.eql(5);\r",
+									"    pm.expect(jsonData[1].event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"    pm.expect(jsonData[1].grade, '\"grade\" must be \"DISLIKE\"').to.eql('DISLIKE');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test like[2] fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[2]).to.have.property('id');\r",
+									"    pm.expect(jsonData[2]).to.have.property('user');\r",
+									"    pm.expect(jsonData[2]).to.have.property('event');\r",
+									"    pm.expect(jsonData[2]).to.have.property('grade');\r",
+									"\r",
+									"    pm.expect(jsonData[2].id, '\"id\" must be 5').to.eql(5);\r",
+									"    pm.expect(jsonData[2].user.id, '\"user.id\" must be 6').to.eql(6);\r",
+									"    pm.expect(jsonData[2].event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"    pm.expect(jsonData[2].grade, '\"grade\" must be \"DISLIKE\"').to.eql('DISLIKE');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test like[3] fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[3]).to.have.property('id');\r",
+									"    pm.expect(jsonData[3]).to.have.property('user');\r",
+									"    pm.expect(jsonData[3]).to.have.property('event');\r",
+									"    pm.expect(jsonData[3]).to.have.property('grade');\r",
+									"\r",
+									"    pm.expect(jsonData[3].id, '\"id\" must be 6').to.eql(6);\r",
+									"    pm.expect(jsonData[3].user.id, '\"user.id\" must be 7').to.eql(7);\r",
+									"    pm.expect(jsonData[3].event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"    pm.expect(jsonData[3].grade, '\"grade\" must be \"DISLIKE\"').to.eql('DISLIKE');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId?queryType=NEGATIVE&from=0&size=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId"
+							],
+							"query": [
+								{
+									"key": "queryType",
+									"value": "NEGATIVE"
+								},
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent grade=DISLIKE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be 7').to.eql(7);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 8').to.eql(8);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"DISLIKE').to.eql('DISLIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=DISLIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "DISLIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "evaluateEvent grade=LIKE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has like create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test like 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'user' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user.id, '\"user.id\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test like 'grade' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.grade, '\"grade\" must be \"LIKE').to.eql('LIKE');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/event/:eventId/users/:userId?grade=LIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"event",
+								":eventId",
+								"users",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "LIKE"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ranking",
+			"item": [
+				{
+					"name": "getEventRanking list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has rank create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test rank[0] fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('event');\r",
+									"    pm.expect(jsonData[0]).to.have.property('likes');\r",
+									"    pm.expect(jsonData[0]).to.have.property('positive');\r",
+									"\r",
+									"    pm.expect(jsonData[0].event.id, '\"event.id\" must be 1').to.eql(1);\r",
+									"    pm.expect(jsonData[0].likes, '\"likes\" must be 10').to.eql(10);\r",
+									"    pm.expect(jsonData[0].positive, '\"positive\" must be 6').to.eql(6);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test rank[1] fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('event');\r",
+									"    pm.expect(jsonData[1]).to.have.property('likes');\r",
+									"    pm.expect(jsonData[1]).to.have.property('positive');\r",
+									"\r",
+									"    pm.expect(jsonData[1].event.id, '\"event.id\" must be 2').to.eql(2);\r",
+									"    pm.expect(jsonData[1].likes, '\"likes\" must be 8').to.eql(8);\r",
+									"    pm.expect(jsonData[1].positive, '\"positive\" must be 4').to.eql(4);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/ranking/event?sort=RATING&from=0&size=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ranking",
+								"event"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "RATING"
+								},
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEventRanking by eventId",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"pm.test(\"Has rank create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test rank fields\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData).to.have.property('likes');\r",
+									"    pm.expect(jsonData).to.have.property('positive');\r",
+									"\r",
+									"    pm.expect(jsonData.event.id, '\"event.id\" must be 2').to.eql(2);\r",
+									"    pm.expect(jsonData.likes, '\"likes\" must be 8').to.eql(8);\r",
+									"    pm.expect(jsonData.positive, '\"positive\" must be 4').to.eql(4);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/ranking/event/:eventId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ranking",
+								"event",
+								":eventId"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "default"
+		},
+		{
+			"key": "response",
+			"value": ""
+		}
+	]
+}
